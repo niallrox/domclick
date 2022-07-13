@@ -1,7 +1,15 @@
 Существует legacy система (externalSystem) которая способна обрабатывать входящие запросы по одному. Запросы
 представлены в виде объекта Data:
-public class Data { private final String code; private final String jsonData; public boolean equals(Data data) {
-//идентичность на основе code } } Причем externalSystem способна одновременно обрабатывать любое количество запросов с
+```
+public class Data {
+    private final String code;
+    private final String jsonData;
+    public boolean equals(Data data) {
+        //идентичность на основе code
+    }
+}
+```
+Причем externalSystem способна одновременно обрабатывать любое количество запросов с
 разными объектами Data и выбрасывает исключение при параллельной обработе одинаковых объектов. Т.е. если система ещё не
 закончила обработку запроса Data и мы вызываем её с одинаковым объектом Data выбрасывается RuntimeException. Требуется
 реализовать следующий метод который бы предотвращал возникновение ошибок, обрабатывал ВСЕ переданные объекты Data и
@@ -9,5 +17,10 @@ public class Data { private final String code; private final String jsonData; pu
 
 - Длительность обработки одно запроса от 10ms до 2 секунд
 - Количество потоков из которых вызывается этот метод - 8
-
-public void handleData(Data data) { ... externalSystem.process( data ); ... }
+```
+public void handleData(Data data) {
+...
+   externalSystem.process( data );
+...
+}
+```
