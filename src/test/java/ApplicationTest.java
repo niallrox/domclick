@@ -21,7 +21,7 @@ class ApplicationTest {
         var executorService = Executors.newFixedThreadPool(8);
         IntStream.range(0, 8).forEach((i) -> executorService.submit(this::run));
         executorService.shutdown();
-        await().atMost(15, TimeUnit.SECONDS).until(executorService::isTerminated);
+        await().atMost(3, TimeUnit.SECONDS).until(executorService::isTerminated);
     }
 
     private void run() {
@@ -34,6 +34,6 @@ class ApplicationTest {
 
 
     private Data buildData() {
-        return new Data(String.valueOf((int) (Math.random())), "json");
+        return new Data(String.valueOf((int) (Math.random() * 123)), "json");
     }
 }
